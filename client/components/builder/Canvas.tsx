@@ -7,6 +7,7 @@ import { ComponentRenderer } from "./Renderer";
 import { ComponentsPanel } from "./ComponentsPanel";
 import { ElementStylePanel } from "./ElementStylePanel";
 import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import { ArrowLeft, Copy, Eye, Save } from "lucide-react";
 import { templateLayoutMap } from "@/components/predefine-email-templates/templates";
 import { useToast } from "@/hooks/use-toast";
@@ -160,33 +161,42 @@ export const BuilderCanvas: React.FC<BuilderCanvasProps> = ({ onBack, templateId
         </div>
 
         <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleCopyLayout}
-            className="group gap-2"
-            title="Copy"
-          >
-            <Copy className="w-4 h-4" />
-            <span className="hidden group-hover:inline">Copy</span>
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setIsPreviewMode(true)}
-            className="group gap-2"
-            title="Preview"
-          >
-            <Eye className="w-4 h-4" />
-            <span className="hidden group-hover:inline">Preview</span>
-          </Button>
-          <Button
-            className="group gap-2 bg-valasys-orange hover:bg-valasys-orange/90 text-white"
-            title="Publish"
-          >
-            <Save className="w-4 h-4" />
-            <span className="hidden group-hover:inline">Publish</span>
-          </Button>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleCopyLayout}
+                className="gap-2"
+              >
+                <Copy className="w-4 h-4" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Copy</TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setIsPreviewMode(true)}
+                className="gap-2"
+              >
+                <Eye className="w-4 h-4" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Preview</TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                className="gap-2 bg-valasys-orange hover:bg-valasys-orange/90 text-white"
+              >
+                <Save className="w-4 h-4" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Publish</TooltipContent>
+          </Tooltip>
         </div>
       </div>
 

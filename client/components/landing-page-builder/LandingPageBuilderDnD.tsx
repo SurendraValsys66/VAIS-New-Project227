@@ -4,6 +4,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { ChevronLeft, Save, Eye, Share2, Smartphone, Tablet, Monitor } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import { LandingPage, LandingPageBlock } from "./types";
 import {
   getLandingPagesFromLocalStorage,
@@ -245,34 +246,42 @@ export const LandingPageBuilderDnD: React.FC<LandingPageBuilderDnDProps> = ({
 
           {/* Action Buttons */}
           <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              className="group gap-2"
-              onClick={() => setShowPreview(true)}
-              title="Preview"
-            >
-              <Eye className="w-4 h-4" />
-              <span className="hidden group-hover:inline">Preview</span>
-            </Button>
-            <Button
-              onClick={handleSave}
-              disabled={isSaving}
-              className="group bg-valasys-orange hover:bg-orange-600 gap-2"
-              size="sm"
-              title={isSaving ? "Saving..." : "Save"}
-            >
-              <Save className="w-4 h-4" />
-              <span className="hidden group-hover:inline">
-                {isSaving ? "Saving..." : "Save"}
-              </span>
-            </Button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="gap-2"
+                  onClick={() => setShowPreview(true)}
+                >
+                  <Eye className="w-4 h-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>Preview</TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  onClick={handleSave}
+                  disabled={isSaving}
+                  className="bg-valasys-orange hover:bg-orange-600 gap-2"
+                  size="sm"
+                >
+                  <Save className="w-4 h-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>{isSaving ? "Saving..." : "Save"}</TooltipContent>
+            </Tooltip>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button className="group bg-green-600 hover:bg-green-700 gap-2" size="sm" title="Publish">
-                  <Share2 className="w-4 h-4" />
-                  <span className="hidden group-hover:inline">Publish</span>
-                </Button>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button className="bg-green-600 hover:bg-green-700 gap-2" size="sm">
+                      <Share2 className="w-4 h-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>Publish</TooltipContent>
+                </Tooltip>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem onClick={() => setShowPublishDialog(true)}>
