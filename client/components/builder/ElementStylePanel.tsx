@@ -2,7 +2,7 @@ import React from "react";
 import { BuilderComponent } from "@/types/builder";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ChevronDown, X } from "lucide-react";
+import { ChevronDown, X, ArrowUp, ArrowDown, ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ElementStylePanelProps {
@@ -472,7 +472,7 @@ export const ElementStylePanel: React.FC<ElementStylePanelProps> = ({
             <div className="px-4 py-4 space-y-6 bg-gray-50">
               {/* Padding Section */}
               <div>
-                <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center justify-between mb-4">
                   <label className="text-xs font-semibold text-gray-700 flex items-center gap-1">
                     Padding
                     <span className="text-gray-400 text-xs">ⓘ</span>
@@ -489,60 +489,84 @@ export const ElementStylePanel: React.FC<ElementStylePanelProps> = ({
                 </div>
 
                 {spacing.groupPadding ? (
-                  <StyleInput
-                    label=""
-                    value={styles.paddingTop}
-                    onChange={(value) => {
-                      handleStyleChange("paddingTop", value);
-                      handleStyleChange("paddingRight", value);
-                      handleStyleChange("paddingBottom", value);
-                      handleStyleChange("paddingLeft", value);
-                    }}
-                    type="number"
-                    placeholder="0"
-                    max={200}
-                  />
+                  <div className="space-y-2 px-2 py-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 flex items-center justify-center">
+                        <span className="text-xs text-gray-400">↕</span>
+                      </div>
+                      <Input
+                        type="number"
+                        value={styles.paddingTop}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          handleStyleChange("paddingTop", value);
+                          handleStyleChange("paddingRight", value);
+                          handleStyleChange("paddingBottom", value);
+                          handleStyleChange("paddingLeft", value);
+                        }}
+                        placeholder="0"
+                        className="h-8 text-sm"
+                      />
+                      <span className="text-xs text-gray-500 w-8 text-right">px</span>
+                    </div>
+                  </div>
                 ) : (
-                  <div className="grid grid-cols-2 gap-3">
-                    <StyleInput
-                      label="Top"
-                      value={styles.paddingTop}
-                      onChange={(value) => handleStyleChange("paddingTop", value)}
-                      type="number"
-                      placeholder="0"
-                      max={200}
-                    />
-                    <StyleInput
-                      label="Right"
-                      value={styles.paddingRight}
-                      onChange={(value) => handleStyleChange("paddingRight", value)}
-                      type="number"
-                      placeholder="0"
-                      max={200}
-                    />
-                    <StyleInput
-                      label="Bottom"
-                      value={styles.paddingBottom}
-                      onChange={(value) => handleStyleChange("paddingBottom", value)}
-                      type="number"
-                      placeholder="0"
-                      max={200}
-                    />
-                    <StyleInput
-                      label="Left"
-                      value={styles.paddingLeft}
-                      onChange={(value) => handleStyleChange("paddingLeft", value)}
-                      type="number"
-                      placeholder="0"
-                      max={200}
-                    />
+                  <div className="grid grid-cols-3 gap-2 px-2 py-3">
+                    {/* Top */}
+                    <div className="col-span-3 flex items-center gap-2">
+                      <ArrowUp className="w-4 h-4 text-gray-400" />
+                      <Input
+                        type="number"
+                        value={styles.paddingTop}
+                        onChange={(e) => handleStyleChange("paddingTop", e.target.value)}
+                        placeholder="0"
+                        className="h-8 text-sm flex-1"
+                      />
+                      <span className="text-xs text-gray-500 w-6 text-right">px</span>
+                    </div>
+                    {/* Left, Center(spacer), Right */}
+                    <div className="flex items-center gap-2">
+                      <ArrowLeft className="w-4 h-4 text-gray-400" />
+                      <Input
+                        type="number"
+                        value={styles.paddingLeft}
+                        onChange={(e) => handleStyleChange("paddingLeft", e.target.value)}
+                        placeholder="0"
+                        className="h-8 text-sm"
+                      />
+                      <span className="text-xs text-gray-500">px</span>
+                    </div>
+                    <div></div>
+                    <div className="flex items-center gap-2">
+                      <ArrowRight className="w-4 h-4 text-gray-400" />
+                      <Input
+                        type="number"
+                        value={styles.paddingRight}
+                        onChange={(e) => handleStyleChange("paddingRight", e.target.value)}
+                        placeholder="0"
+                        className="h-8 text-sm"
+                      />
+                      <span className="text-xs text-gray-500">px</span>
+                    </div>
+                    {/* Bottom */}
+                    <div className="col-span-3 flex items-center gap-2">
+                      <ArrowDown className="w-4 h-4 text-gray-400" />
+                      <Input
+                        type="number"
+                        value={styles.paddingBottom}
+                        onChange={(e) => handleStyleChange("paddingBottom", e.target.value)}
+                        placeholder="0"
+                        className="h-8 text-sm flex-1"
+                      />
+                      <span className="text-xs text-gray-500 w-6 text-right">px</span>
+                    </div>
                   </div>
                 )}
               </div>
 
               {/* Margin Section */}
               <div>
-                <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center justify-between mb-4">
                   <label className="text-xs font-semibold text-gray-700 flex items-center gap-1">
                     Margin
                     <span className="text-gray-400 text-xs">ⓘ</span>
@@ -559,53 +583,77 @@ export const ElementStylePanel: React.FC<ElementStylePanelProps> = ({
                 </div>
 
                 {spacing.groupMargin ? (
-                  <StyleInput
-                    label=""
-                    value={styles.marginTop}
-                    onChange={(value) => {
-                      handleStyleChange("marginTop", value);
-                      handleStyleChange("marginRight", value);
-                      handleStyleChange("marginBottom", value);
-                      handleStyleChange("marginLeft", value);
-                    }}
-                    type="number"
-                    placeholder="0"
-                    max={200}
-                  />
+                  <div className="space-y-2 px-2 py-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 flex items-center justify-center">
+                        <span className="text-xs text-gray-400">↕</span>
+                      </div>
+                      <Input
+                        type="number"
+                        value={styles.marginTop}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          handleStyleChange("marginTop", value);
+                          handleStyleChange("marginRight", value);
+                          handleStyleChange("marginBottom", value);
+                          handleStyleChange("marginLeft", value);
+                        }}
+                        placeholder="0"
+                        className="h-8 text-sm"
+                      />
+                      <span className="text-xs text-gray-500 w-8 text-right">px</span>
+                    </div>
+                  </div>
                 ) : (
-                  <div className="grid grid-cols-2 gap-3">
-                    <StyleInput
-                      label="Top"
-                      value={styles.marginTop}
-                      onChange={(value) => handleStyleChange("marginTop", value)}
-                      type="number"
-                      placeholder="0"
-                      max={200}
-                    />
-                    <StyleInput
-                      label="Right"
-                      value={styles.marginRight}
-                      onChange={(value) => handleStyleChange("marginRight", value)}
-                      type="number"
-                      placeholder="0"
-                      max={200}
-                    />
-                    <StyleInput
-                      label="Bottom"
-                      value={styles.marginBottom}
-                      onChange={(value) => handleStyleChange("marginBottom", value)}
-                      type="number"
-                      placeholder="0"
-                      max={200}
-                    />
-                    <StyleInput
-                      label="Left"
-                      value={styles.marginLeft}
-                      onChange={(value) => handleStyleChange("marginLeft", value)}
-                      type="number"
-                      placeholder="0"
-                      max={200}
-                    />
+                  <div className="grid grid-cols-3 gap-2 px-2 py-3">
+                    {/* Top */}
+                    <div className="col-span-3 flex items-center gap-2">
+                      <ArrowUp className="w-4 h-4 text-gray-400" />
+                      <Input
+                        type="number"
+                        value={styles.marginTop}
+                        onChange={(e) => handleStyleChange("marginTop", e.target.value)}
+                        placeholder="0"
+                        className="h-8 text-sm flex-1"
+                      />
+                      <span className="text-xs text-gray-500 w-6 text-right">px</span>
+                    </div>
+                    {/* Left, Center(spacer), Right */}
+                    <div className="flex items-center gap-2">
+                      <ArrowLeft className="w-4 h-4 text-gray-400" />
+                      <Input
+                        type="number"
+                        value={styles.marginLeft}
+                        onChange={(e) => handleStyleChange("marginLeft", e.target.value)}
+                        placeholder="0"
+                        className="h-8 text-sm"
+                      />
+                      <span className="text-xs text-gray-500">px</span>
+                    </div>
+                    <div></div>
+                    <div className="flex items-center gap-2">
+                      <ArrowRight className="w-4 h-4 text-gray-400" />
+                      <Input
+                        type="number"
+                        value={styles.marginRight}
+                        onChange={(e) => handleStyleChange("marginRight", e.target.value)}
+                        placeholder="0"
+                        className="h-8 text-sm"
+                      />
+                      <span className="text-xs text-gray-500">px</span>
+                    </div>
+                    {/* Bottom */}
+                    <div className="col-span-3 flex items-center gap-2">
+                      <ArrowDown className="w-4 h-4 text-gray-400" />
+                      <Input
+                        type="number"
+                        value={styles.marginBottom}
+                        onChange={(e) => handleStyleChange("marginBottom", e.target.value)}
+                        placeholder="0"
+                        className="h-8 text-sm flex-1"
+                      />
+                      <span className="text-xs text-gray-500 w-6 text-right">px</span>
+                    </div>
                   </div>
                 )}
               </div>
