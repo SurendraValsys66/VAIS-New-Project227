@@ -100,10 +100,15 @@ export const BuilderCanvas: React.FC<BuilderCanvasProps> = ({ onBack, templateId
   const handleSaveVideoDialog = () => {
     if (!selectedComponentId) return;
 
+    const trimmedUrl = videoDialogUrl.trim();
+    console.log("Saving video:", { selectedComponentId, trimmedUrl });
+
     updateComponent(selectedComponentId, {
-      videoUrl: videoDialogUrl.trim(),
+      videoUrl: trimmedUrl,
     });
+
     setIsVideoDialogOpen(false);
+    setVideoDialogUrl("");
     setVideoDialogFileName("");
   };
 
@@ -445,6 +450,7 @@ export const BuilderCanvas: React.FC<BuilderCanvasProps> = ({ onBack, templateId
               variant="outline"
               onClick={() => {
                 setIsVideoDialogOpen(false);
+                setVideoDialogUrl("");
                 setVideoDialogFileName("");
               }}
             >

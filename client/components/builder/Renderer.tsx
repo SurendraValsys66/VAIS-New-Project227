@@ -555,6 +555,14 @@ export const ComponentRenderer: React.FC<RendererProps> = ({
     case "video": {
       const videoSource = component.videoUrl || component.props?.videoUrl || component.props?.src;
 
+      console.log("Video component rendering:", {
+        componentId: component.id,
+        videoUrl: component.videoUrl,
+        propsVideoUrl: component.props?.videoUrl,
+        propsSrc: component.props?.src,
+        finalSource: videoSource,
+      });
+
       // Determine video MIME type based on file extension or data URL
       const getVideoType = (src: string) => {
         if (!src) return "video/mp4";
