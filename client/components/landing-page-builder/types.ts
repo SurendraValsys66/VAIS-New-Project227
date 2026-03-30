@@ -47,6 +47,12 @@ export interface LandingPageBlockProperties extends Record<string, any> {
   hideOnMobile?: boolean;
   hideOnTablet?: boolean;
   hideOnDesktop?: boolean;
+  // Background image properties
+  backgroundImageUrl?: string;
+  backgroundSize?: "cover" | "contain" | "auto" | "stretch";
+  backgroundPosition?: "top" | "center" | "bottom" | "top-left" | "top-right" | "bottom-left" | "bottom-right";
+  backgroundRepeat?: "no-repeat" | "repeat" | "repeat-x" | "repeat-y";
+  backgroundAttachment?: "scroll" | "fixed";
 }
 
 export interface LandingPageBlock {

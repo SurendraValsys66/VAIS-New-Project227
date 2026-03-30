@@ -1002,6 +1002,56 @@ export const EnhancedSettingsPanel: React.FC<EnhancedSettingsPanelProps> = ({
                             <SelectItem value="top">Top</SelectItem>
                             <SelectItem value="center">Center</SelectItem>
                             <SelectItem value="bottom">Bottom</SelectItem>
+                            <SelectItem value="top-left">Top Left</SelectItem>
+                            <SelectItem value="top-right">Top Right</SelectItem>
+                            <SelectItem value="bottom-left">Bottom Left</SelectItem>
+                            <SelectItem value="bottom-right">Bottom Right</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <Label className="text-xs font-semibold text-gray-700 mb-2 block">
+                          Repeat
+                        </Label>
+                        <Select
+                          value={props.backgroundRepeat || "no-repeat"}
+                          onValueChange={(value) =>
+                            onBlockUpdate({
+                              ...block,
+                              properties: { ...props, backgroundRepeat: value },
+                            })
+                          }
+                        >
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="no-repeat">No Repeat</SelectItem>
+                            <SelectItem value="repeat">Repeat</SelectItem>
+                            <SelectItem value="repeat-x">Repeat X</SelectItem>
+                            <SelectItem value="repeat-y">Repeat Y</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <Label className="text-xs font-semibold text-gray-700 mb-2 block">
+                          Attachment
+                        </Label>
+                        <Select
+                          value={props.backgroundAttachment || "scroll"}
+                          onValueChange={(value) =>
+                            onBlockUpdate({
+                              ...block,
+                              properties: { ...props, backgroundAttachment: value },
+                            })
+                          }
+                        >
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="scroll">Scroll</SelectItem>
+                            <SelectItem value="fixed">Fixed (Parallax)</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
