@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Trash2, Copy, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 interface FeaturesSectionProps {
   block: LandingPageBlock;
@@ -166,23 +167,32 @@ export const FeaturesSection: React.FC<FeaturesSectionProps> = ({
       ? block.properties.heading
       : block.properties.description;
     navigator.clipboard.writeText(content || "");
+    toast.success("Copied to clipboard");
   };
 
   const handleAddHeaderElement = (elementType: "heading" | "description") => {
-    // For heading/description, "add" means duplicate it
-    // Store it in clipboard and user can paste if needed
+    // For header elements, Add creates a copy of the content
     const content = elementType === "heading"
       ? block.properties.heading
       : block.properties.description;
+
+    if (!content) {
+      toast.error("No content to duplicate");
+      return;
+    }
+
+    // Copy to clipboard as a way to add/duplicate
     navigator.clipboard.writeText(content || "");
-    // Or you could create a copy in the block - for now we'll just copy to clipboard
+    toast.success("Copied to clipboard - paste anywhere to use");
   };
 
   const handleDeleteHeaderElement = (elementType: "heading" | "description") => {
     if (elementType === "heading") {
       handleUpdateBlock({ heading: "" });
+      toast.success("Heading cleared");
     } else {
       handleUpdateBlock({ description: "" });
+      toast.success("Description cleared");
     }
     setLocalSelectedHeaderElement(null);
     onSelect?.(null);
@@ -254,7 +264,7 @@ export const FeaturesSection: React.FC<FeaturesSectionProps> = ({
               className={cn(
                 "text-3xl font-bold text-gray-900 cursor-text p-2 rounded transition-all outline-none",
                 localSelectedHeaderElement === "heading"
-                  ? "border-2 border-solid border-valasys-orange bg-valasys-orange/5"
+                  ? "border-2 border-solid border-valasys-orange"
                   : hoveredHeaderElement === "heading"
                   ? "border-2 border-dashed border-valasys-orange bg-gray-50"
                   : "border-2 border-transparent hover:bg-gray-50"
@@ -288,7 +298,7 @@ export const FeaturesSection: React.FC<FeaturesSectionProps> = ({
               className={cn(
                 "text-gray-600 cursor-text p-2 rounded transition-all outline-none",
                 localSelectedHeaderElement === "description"
-                  ? "border-2 border-solid border-valasys-orange bg-valasys-orange/5"
+                  ? "border-2 border-solid border-valasys-orange"
                   : hoveredHeaderElement === "description"
                   ? "border-2 border-dashed border-valasys-orange bg-gray-50"
                   : "border-2 border-transparent hover:bg-gray-50"
